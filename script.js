@@ -11,24 +11,26 @@ function updateDisplay() {
 }
 keys.addEventListener("click", (event) => {
   const element = event.target;
+  const value = element.value;
   if (!element.matches("button")) return;
 
-  if (element.classList.contains("operator")) {
-    handleOperator(element.value);
-    updateDisplay();
-    return;
+  switch (value) {
+    case "+":
+    case "-":
+    case "*":
+    case "/":
+    case "=":
+      handleOperator(value);
+      break;
+    case ".":
+      inputDecimal();
+    case "clear":
+      clear();
+      break;
+    default:
+      inputNumber(value);
+      break;
   }
-  if (element.classList.contains("decimal")) {
-    inputDecimal();
-    updateDisplay();
-    return;
-  }
-  if (element.classList.contains("clear")) {
-    clear();
-    updateDisplay();
-    return;
-  }
-  inputNumber(element.value);
   updateDisplay();
 });
 
